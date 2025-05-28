@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh 'mvnw clean package'  // Or build command
+                sh 'mvn clean package'  // Or build command
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'mvnw test'  // Or  test command
+                sh 'mvn test'  // Or  test command
             }
         }
         stage('Deploy') {

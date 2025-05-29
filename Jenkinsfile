@@ -1,24 +1,23 @@
 pipeline {
-    agent any  // Or specify a specific agent (node)
-
+    agent any
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                sh 'mvn clean package'  // Or build command
+                echo 'Building...'
             }
         }
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'mvn test'  // Or  test command
+                echo 'Testing...'
             }
         }
-        stage('Deploy') {
+        stage('Code Quality') {
             steps {
-                echo 'Deploying the application...'
-                // Your deployment steps here (e.g., Docker commands, deployment scripts)
-            }
+                withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn sonar:sonar'
+                }
+             }
         }
+
     }
 }

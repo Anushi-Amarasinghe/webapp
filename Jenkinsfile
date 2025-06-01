@@ -33,5 +33,17 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
+        stage('Test') {
+            steps {
+                 sh 'mvn test'
+             }
+        }
+        stage('Code Coverage') {
+            steps {
+                jacoco execPattern: 'target/jacoco.exec'
+            }
+        }
+
+
     }
 }

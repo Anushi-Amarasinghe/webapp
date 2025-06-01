@@ -29,7 +29,7 @@ pipeline {
                     --out .
                     --format ALL
                     --prettyPrint
-                ''', odcInstallation: 'owasp'
+                ''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }

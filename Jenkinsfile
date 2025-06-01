@@ -1,10 +1,9 @@
 pipeline {
     agent any
     tools {
-    jdk 'jdk17'
-    maven 'maven'
-         }
-
+        jdk 'jdk17'
+        maven 'maven'
+    }
     stages {
         stage('Build') {
             steps {
@@ -18,12 +17,21 @@ pipeline {
         }
         stage('Code Quality') {
             steps {
-                //soonar code
                 withSonarQubeEnv('My SonarQube Server') {
-                sh 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
-             }
+            }
         }
-
+        stage('Security') {
+            steps {
+                dependencyCheck additionalArguments: '''
+                    --scan .
+                    --out .
+                    --format ALL
+                    --prettyPrint
+                ''', odcInstallation: 'owasp'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
     }
 }

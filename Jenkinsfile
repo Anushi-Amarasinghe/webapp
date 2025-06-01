@@ -33,7 +33,7 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                  sh 'mvn test'
              }
